@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const axios = require("axios");
+const datasetUrl = process.env.DATASET_URL || "https://data.cityofnewyork.us/resource/gkne-dk5s.json";
 
 const tripsController = {
   async getTrips(req, res, next) {
@@ -31,7 +32,7 @@ const tripsController = {
       params.append("$limit", limit);
 
       const response = await axios.get(
-        `${process.env.DATASET_URL}?${params.toString()}`
+        `${datasetUrl}?${params.toString()}`
       );
 
       if (!response.data.length)
@@ -51,7 +52,7 @@ const tripsController = {
       const query =
         "$select=date_trunc_ym(pickup_datetime) as month, count(*) as trip_count&$group=month&$order=month ASC";
 
-      const response = await axios.get(`${process.env.DATASET_URL}?${query}`);
+      const response = await axios.get(`${datasetUrl}?${query}`);
       const demandTrends = response.data.map((trend) =>
         Number(trend.trip_count)
       );
@@ -70,7 +71,7 @@ const tripsController = {
       const query =
         "$select=date_extract_m(pickup_datetime) as month_num, sum(total_amount) as total_income&$group=month_num&$order=month_num ASC";
 
-      const response = await axios.get(`${process.env.DATASET_URL}?${query}`);
+      const response = await axios.get(`${datasetUrl}?${query}`);
       const incomeTrends = response.data.map((trend) =>
         Number(trend.total_income).toFixed(0)
       );
