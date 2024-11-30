@@ -27,7 +27,6 @@ A RESTful API service that provides NYC Yellow Taxi trip data analysis and visua
 - `maxFareAmount`: Filter by max fare amount
 - `minDistance`: Filter by min trip distance
 - `maxDistance`: Filter by max trip distance
-- `trip_distance`: Filter by trip distance
 - `payment_type`: Filter by pickup type
 - `limit`: Limit the number of results
 
