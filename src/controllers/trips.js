@@ -1,7 +1,9 @@
 require("dotenv").config();
 
 const axios = require("axios");
-const datasetUrl = process.env.DATASET_URL || "https://data.cityofnewyork.us/resource/gkne-dk5s.json";
+const datasetUrl =
+  process.env.DATASET_URL ||
+  "https://data.cityofnewyork.us/resource/gkne-dk5s.json";
 
 const tripsController = {
   async getTrips(req, res, next) {
@@ -24,19 +26,24 @@ const tripsController = {
       if (maxFareAmount) query.push(`fare_amount=${maxFareAmount}`);
       if (minDistance) query.push(`trip_distance=${minDistance}`);
       if (maxDistance) query.push(`trip_distance=${maxDistance}`);
-      if (pickupDatetime) query.push(`date_trunc_ymd(pickup_datetime)='${pickupDatetime.split('T')[0]}'`);
-      if (dropoffDatetime) query.push(`date_trunc_ymd(dropoff_datetime)='${dropoffDatetime.split('T')[0]}'`);
+      if (pickupDatetime) query.push(`
+      showTimeSelect='${pickupDatetime}'`);
+      if (dropoffDatetime) query.push(`dropoff_datetime='${dropoffDatetime}'`);
       if (paymentType) query.push(`payment_type='${paymentType}'`);
 
       if (query.length) params.append("$where", `${query.join(" AND ")}`);
       params.append("$limit", limit);
 
-      const response = await axios.get(
-        `${datasetUrl}?${params.toString()}`
-      );
+      console.log(`${datasetUrl}?${params.toString()}`);
+
+      const response = await axios.get(`${datasetUrl}?${params.toString()}`);
 
       if (!response.data.length)
-        throw { name: "NoDataError", message: "Trip Not Found!" };
+        throw {
+          status: 401,
+          name: "NoDataError",
+          message: "Trip Not Found!",
+        };
 
       res.status(200).json({
         message: "Successfully retrieved trips data",
