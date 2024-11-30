@@ -26,8 +26,7 @@ const tripsController = {
       if (maxFareAmount) query.push(`fare_amount=${maxFareAmount}`);
       if (minDistance) query.push(`trip_distance=${minDistance}`);
       if (maxDistance) query.push(`trip_distance=${maxDistance}`);
-      if (pickupDatetime) query.push(`
-      showTimeSelect='${pickupDatetime}'`);
+      if (pickupDatetime) query.push(`pickup_datetime='${pickupDatetime}'`);
       if (dropoffDatetime) query.push(`dropoff_datetime='${dropoffDatetime}'`);
       if (paymentType) query.push(`payment_type='${paymentType}'`);
 
@@ -40,7 +39,7 @@ const tripsController = {
 
       if (!response.data.length)
         throw {
-          status: 401,
+          status: 400,
           name: "NoDataError",
           message: "Trip Not Found!",
         };
