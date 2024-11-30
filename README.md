@@ -18,8 +18,7 @@ A RESTful API service that provides NYC Yellow Taxi trip data analysis and visua
 ## API Endpoints
 
 ### Get Trips
-```http
-GET /api/trips
+    GET /api/trips
 
 #### Query Parameters
 - `pickupDatetime`: Filter by pickup date and time (format: YYYY-MM-DD HH:MM:SS)
@@ -33,30 +32,31 @@ GET /api/trips
 - `limit`: Limit the number of results
 
 ### Get Monthly Demand Trend
-```http
-GET /api/trips/demand-trend
 Returns monthly trip counts throughout the year.
 
+    GET /api/trips/demand-trend
+
 ### Get Monthly Income Trend
-```http
-GET /api/trips/income-trend
 Returns monthly income amount throughout the year.
+
+    GET /api/trips/income-trend
+
 
 ## Setup
 
 1. Clone the repository
-```bash
-git clone https://github.com/muflifadla38/yellow-taxi-trip-api.git
+    ```bash
+    git clone https://github.com/muflifadla38/yellow-taxi-trip-api.git
 
 2. Install dependencies
-```bash
-cd yellow-taxi-trip-api
-npm install
+    ```bash
+    cd yellow-taxi-trip-api
+    npm install
 
 3. Set up environment variables
-```bash
-cp .env.example .env
+    ```bash
+    cp .env.example .env
 
 4. Start the server
-```bash
-npm run start
+    ```bash
+    npm run start
