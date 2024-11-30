@@ -22,10 +22,10 @@ const tripsController = {
 
       let query = [];
 
-      if (minFareAmount) query.push(`fare_amount=${minFareAmount}`);
-      if (maxFareAmount) query.push(`fare_amount=${maxFareAmount}`);
-      if (minDistance) query.push(`trip_distance=${minDistance}`);
-      if (maxDistance) query.push(`trip_distance=${maxDistance}`);
+      if (minFareAmount) query.push(`fare_amount>=${minFareAmount}`);
+      if (maxFareAmount) query.push(`fare_amount<=${maxFareAmount}`);
+      if (minDistance) query.push(`trip_distance>=${minDistance}`);
+      if (maxDistance) query.push(`trip_distance<=${maxDistance}`);
       if (pickupDatetime) query.push(`pickup_datetime='${pickupDatetime}'`);
       if (dropoffDatetime) query.push(`dropoff_datetime='${dropoffDatetime}'`);
       if (paymentType) query.push(`payment_type='${paymentType}'`);
@@ -33,6 +33,7 @@ const tripsController = {
       if (query.length) params.append("$where", `${query.join(" AND ")}`);
       params.append("$limit", limit);
 
+      console.log(query.join(" AND "));
       console.log(`${datasetUrl}?${params.toString()}`);
 
       const response = await axios.get(`${datasetUrl}?${params.toString()}`);
